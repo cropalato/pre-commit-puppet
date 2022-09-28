@@ -1,0 +1,10 @@
+- id: validate-class
+  stages: [commit]
+  name: Check puppet file
+  description: Check puppet files
+  language: docker_image
+  entry: puppet/puppet-agent
+  files: \.pp$
+  args:
+  - parser
+  - validate

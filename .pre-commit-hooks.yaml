@@ -3,7 +3,7 @@
   name: Check puppet file
   description: Check puppet files
   language: docker_image
-  entry: puppet/puppet-agent
+  entry: --env HOME=/tmp puppet/puppet-agent
   files: \.pp$
   args:
   - parser

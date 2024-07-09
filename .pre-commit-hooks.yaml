@@ -1,3 +1,4 @@
+# Puppet
 - id: validate-class
   stages: [commit]
   name: Check puppet file
@@ -8,3 +9,36 @@
   args:
   - parser
   - validate
+# Prometheus
+- id: check-config
+  stages: [commit]
+  name: Check prometheus config files
+  description: Check prometheus config files
+  language: docker_image
+  entry: --entrypoint /bin/promtool prom/prometheus:latest
+  files: ^$
+  args:
+  - check
+  - config
+
+- id: check-rules
+  stages: [commit]
+  name: Check prometheus rule files
+  description: Check prometheus rule files
+  language: docker_image
+  entry: --entrypoint /bin/promtool prom/prometheus:latest
+  files: ^$
+  args:
+  - check
+  - rules
+
+- id: test-rules
+  stages: [commit]
+  name: Unit test prometheus rule files
+  description: Unit test prometheus rule files
+  language: docker_image
+  entry: --entrypoint /bin/promtool prom/prometheus:latest
+  files: ^$
+  args:
+  - test
+  - rules
